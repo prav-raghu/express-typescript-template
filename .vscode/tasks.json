@@ -1,0 +1,14 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "tsc: build - shokwazi-api",
+            "type": "shell",
+            "command": "tsc",
+            "options": {
+                "cwd": "${workspaceFolder}/apps/backend/shokwazi-api"
+            },
+            "problemMatcher": ["$tsc"]
+        }
+    ]
+}
