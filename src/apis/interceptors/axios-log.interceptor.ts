@@ -27,7 +27,7 @@ export class AxiosLogInterceptor {
                 const contentType = response.headers?.["content-type"];
                 const isJsonResponse = contentType?.includes("application/json");
                 const responseData = isJsonResponse ? JSON.stringify(response.data) : response.data;
-                logger.info("", {
+                logger.info("info", {
                     method: response?.config?.method?.toUpperCase()!,
                     url: response.config?.url || "",
                     requestBody: response.config?.data,
@@ -38,37 +38,23 @@ export class AxiosLogInterceptor {
                     system: "external",
                     level: "info",
                     headers: response?.headers,
+                    timestamp: DateTime.now().toISO(),
                 });
                 return response;
             },
             async (error) => {
                 this.normalizeException(error);
-            },
-        );
-
-        axiosInstance.interceptors.response.use(
-            async (response) => {
-                logger.info("", {
-                    method: response.config?.method?.toUpperCase(),
-                    url: response.config?.url,
-                    requestBody: JSON.stringify(response.config?.data),
-                    response: JSON.stringify(response.data),
-                    status: response.status,
+                logger.error("error", {
+                    method: error?.config?.method?.toUpperCase(),
+                    url: error?.config?.url,
+                    requestBody: JSON.stringify(error?.config?.data),
+                    response: JSON.stringify(error?.response?.data),
+                    status: error?.response?.status,
                     timestamp: DateTime.now().toISO(),
                     system: "external",
-                    level: "info",
-                    headers: JSON.stringify(response.config?.headers),
+                    level: "error",
+                    headers: JSON.stringify(error?.config?.headers),
                 });
-                return response;
-            },
-            async (error: {
-                response: { data: any; status?: any };
-                message: any;
-                code: any;
-                name: any;
-                config: { method: string; url: any; data: any };
-            }) => {
-                this.normalizeException(error);
             },
         );
     }
