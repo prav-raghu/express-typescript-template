@@ -2,11 +2,11 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "tsc: build - shokwazi-api",
+            "label": "tsc: build - express-typescript-template",
             "type": "shell",
             "command": "tsc",
             "options": {
-                "cwd": "${workspaceFolder}/apps/backend/shokwazi-api"
+                "cwd": "${workspaceFolder}/apps/backend/express-typescript-template"
             },
             "problemMatcher": ["$tsc"]
         }

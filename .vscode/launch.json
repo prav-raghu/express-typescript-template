@@ -1,14 +1,27 @@
 {
     "version": "0.2.0",
     "configurations": [
+        // {
+        //     "name": "Run with TS-Node",
+        //     "type": "node",
+        //     "request": "launch",
+        //     "runtimeArgs": ["-r", "ts-node/register"],
+        //     "args": ["${workspaceFolder}/src/server.ts"],
+        //     "cwd": "${workspaceFolder}",
+        //     "internalConsoleOptions": "openOnSessionStart"
+        // },
         {
-            "name": "Run with TS-Node",
+            "name": "Debug with Nodemon (Hot Reload)",
             "type": "node",
             "request": "launch",
-            "runtimeArgs": ["-r", "ts-node/register"],
-            "args": ["${workspaceFolder}/src/server.ts"],
+            "runtimeExecutable": "nodemon",
+            "runtimeArgs": ["--exec", "ts-node"],
+            "program": "${workspaceFolder}/src/server.ts",
+            "restart": true,
+            "args": [],
             "cwd": "${workspaceFolder}",
-            "internalConsoleOptions": "openOnSessionStart"
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
         }
     ]
 }
