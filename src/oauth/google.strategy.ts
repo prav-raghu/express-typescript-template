@@ -21,7 +21,7 @@ export class GoogleOAuthStrategy {
         );
     }
 
-    private async verify(
+    public async verify(
         accessToken: string,
         refreshToken: string,
         profile: Profile,
@@ -33,8 +33,8 @@ export class GoogleOAuthStrategy {
             if (!email) return done(new Error("No email found"), false);
             const user = await this.authService.findOrCreateOAuthUser(email, name);
             return done(null, user);
-        } catch (err) {
-            return done(err instanceof Error ? err : new Error(String(err)), false);
+        } catch (exception) {
+            return done(exception instanceof Error ? exception : new Error(String(exception)), false);
         }
     }
 }
