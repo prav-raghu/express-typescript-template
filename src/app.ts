@@ -2,10 +2,10 @@ import express, { Application } from "express";
 import helmet from "helmet";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
-import swaggerUi from "swagger-ui-express";
 import routes from "./routes";
-import { swaggerSpec } from "./docs/swagger";
+import swaggerUi from "swagger-ui-express";
 import { logger } from "./config/logger";
+import { SwaggerConfig } from "./docs/swagger";
 
 export class App {
     public app: Application;
@@ -14,6 +14,7 @@ export class App {
         this.app = express();
         this.initializeMiddlewares();
         this.initializeRoutes();
+        this.setupSwagger();
     }
 
     private initializeMiddlewares(): void {
@@ -25,7 +26,11 @@ export class App {
             logger.info("Incoming request", { req });
             next();
         });
-        this.app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    }
+
+    private setupSwagger(): void {
+        const swaggerSpec = new SwaggerConfig().init();
+        this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
     }
 
     private initializeRoutes(): void {

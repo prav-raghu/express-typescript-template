@@ -1,39 +1,23 @@
-import swaggerJSDoc, { Options, SwaggerDefinition } from "swagger-jsdoc";
+import swaggerJSDoc, { Options } from "swagger-jsdoc";
 
 export class SwaggerConfig {
     private readonly options: Options;
 
     constructor() {
         this.options = {
-            definition: this.createDefinition(),
-            apis: ["./src/routes/*.ts", "./src/dtos/*.ts"],
-        };
-    }
-
-    private createDefinition(): SwaggerDefinition {
-        return {
-            openapi: "3.0.0",
-            info: {
-                title: "Express TypeScript API",
-                version: "1.0.0",
-                description: "Production-grade Express.js + TypeScript API",
-            },
-            components: {
-                securitySchemes: {
-                    bearerAuth: {
-                        type: "http",
-                        scheme: "bearer",
-                        bearerFormat: "JWT",
-                    },
+            definition: {
+                openapi: "3.0.0",
+                info: {
+                    title: "Express TypeScript API",
+                    version: "1.0.0",
                 },
             },
-            security: [{ bearerAuth: [] }],
+            apis: ["./src/routes/*.ts", "./src/controllers/*.ts"],
         };
     }
 
-    public getSpec() {
-        return swaggerJSDoc(this.options);
+    public init() {
+        const swaggerSpec = swaggerJSDoc(this.options);
+        return swaggerSpec;
     }
 }
-
-export const swaggerSpec = new SwaggerConfig().getSpec();

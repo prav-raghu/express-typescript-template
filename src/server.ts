@@ -35,7 +35,10 @@ class Server {
             console.info(`Server running on port ${this.port}`);
             console.info(`🌐 HTTP Server Running\n🔢 Version: ${packageJson.version}\n🔌 Port: ${this.port}`);
             if (env.NODE_ENV === "development") {
-                console.info(`📝 Variables Applied:\n ${JSON.stringify(process.env)}`);
+                console.info(`🛠️ Development Mode Enabled`);
+                console.info(`💻 URL: http://localhost:${this.port}`);
+                console.info(`📃 Documentation: http://localhost:${this.port}/doc`);
+                console.info(`📝 Environment Variables:\n ${JSON.stringify(env, null, 2)}`);
             }
         });
     }

@@ -12,6 +12,25 @@ export class PingRoute {
     }
 
     private setupRoutes() {
+        /**
+         * @swagger
+         * /ping:
+         *   get:
+         *     summary: Health check endpoint
+         *     tags:
+         *       - Ping
+         *     responses:
+         *       200:
+         *         description: Pong response
+         *         content:
+         *           application/json:
+         *             schema:
+         *               type: object
+         *               properties:
+         *                 message:
+         *                   type: string
+         *                   example: pong
+         */
         this.router.use("/", this.controller.ping);
     }
 

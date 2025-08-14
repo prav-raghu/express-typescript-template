@@ -5,3 +5,5 @@ export class PingController {
         return response.json({ message: "pong" });
     }
 }
+
+export const pingController = new PingController();
